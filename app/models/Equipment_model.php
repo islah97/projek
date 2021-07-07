@@ -9,7 +9,7 @@ class Equipment_model extends Model
     private $db;
     protected $table      = 'equipment';
     protected $primaryKey = 'equipment_id';
-    protected $cols = ['equipment_name', 'equipment_id'];
+    // protected $cols = ['equipment_name', 'equipment_id'];
 
     public function __construct()
     {
@@ -86,7 +86,8 @@ class Equipment_model extends Model
 
     public function update($data)
     {
-        $equip_id = $this->db->escape($data['equipment_id']);
+        $equipment_id = $this->db->escape($data['equipment_id']);
+
         $data = [
             'equipment_name' => $this->db->escape($data['equipment_name']),
             'equipment_serial_no' => $this->db->escape($data['equipment_serial_no']),
@@ -95,9 +96,10 @@ class Equipment_model extends Model
             'equipment_model' => $this->db->escape($data['equipment_model']),
             'updated_at' => $this->timestamp
         ];
+        // $result = ($this->db->where($this->primaryKey, $equipment_id)->update($this->table, $data)) ? 200 : 400;
+        // return $result;
 
-        $result = ($this->db->where($this->primaryKey, $equip_id)->update($this->table, $data)) ? 200 : 400;
-        return $result;
+        return $result = ($this->db->where($this->primaryKey, $equipment_id)->update($this->table, $data)) ? 200 : 400;
     }
 
     public function delete($id)

@@ -77,6 +77,11 @@ class Equipment extends Controller
 		$this->jsonResult($data);
 	}
 
+	public function getupdate()
+	{
+		$this->jsonResult($this->user_model->getEquipByID($_POST['id']));
+	}
+
 	public function delete()
 	{
 		$result = $this->equipment_model->delete($_POST['id']);
