@@ -194,7 +194,7 @@
 
                <div class="modal-footer text-center">
                 <center>
-                   <input type="hidden" name="equipment_id" id="equipment_id" placeholder="equipment id">
+                   <input type="hidden" name="equipment_id" id="equipment_id" placeholder="equipment id" >
                   <input type="hidden" name="typeForm" id="typeForm" value="create">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                   <button type="submit" name="saveBtn" onclick="submitForm()" class="btn btn-primary">Simpan <span class="fa fa-floppy-o"></span></button>
