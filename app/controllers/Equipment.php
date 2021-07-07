@@ -79,7 +79,7 @@ class Equipment extends Controller
 
 	public function getupdate()
 	{
-		$this->jsonResult($this->user_model->getEquipByID($_POST['id']));
+		$this->jsonResult($this->equipment_model->getEquipByID($_POST['id']));
 	}
 
 	public function delete()

@@ -222,6 +222,7 @@
                 document.getElementById("formData").reset();
                 $('#equipment_id').val('');
                 $('#typeForm').val('create');
+                $(".modal-backdrop").remove();
             });
       });
 
@@ -302,7 +303,7 @@
                   } 
 
                   var del = '<button onclick="deleteData(' + data[i]['equipment_id'] + ')" class="btn btn-sm btn-danger" title="Remove"> <i class="fa fa-trash"></i></button>';
-                  var edit = '<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#formModal" onclick="updateData(' + data[i]['equipment_id'] + ')" title="Edit"><i class="fa fa-edit"></i> </button>';
+                  var edit = '<button class="btn btn-sm btn-info" onclick="updateData(' + data[i]['equipment_id'] + ')" title="Edit"><i class="fa fa-edit"></i> </button>';
 
                   table.row.add([
                     data[i]['equipment_name'],

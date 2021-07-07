@@ -201,6 +201,7 @@
                 document.getElementById("formData").reset();
                 $('#user_id').val('');
                 $('#typeForm').val('create');
+                $(".modal-backdrop").remove();
             });
       });
 
