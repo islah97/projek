@@ -14,7 +14,7 @@
 
       <div class="col-md-4 col-8">
         <div class="box box-body bg-success">
-          <h6 class="text-uppercase">Pekerjaaaaaaaaaaaaaaaaaaaaa</h6>
+          <h6 class="text-uppercase">Pekerja</h6>
           <div class="flexbox mt-2">
           <span class="path1"></span><span class="path2"></span></span>
           <span class=" font-size-30" id="total_staff">0</span>
