@@ -1,0 +1,53 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+# Redirect to dashboard page
+RewriteRule ^dashboard?$ view/dashboard.php [L]
+
+# Redirect to User
+RewriteRule ^user?$ view/user/list.php [L]
+# RewriteRule ^user-update/([0-9]+)?$ view/user/update.php?uid=$1 [L]
+# RewriteRule ^user-getdata-ajax/([0-9]+)/([^/]+)?$ controller/UserController.php?id=$1&action=$2 [L]
+# RewriteRule ^user-update-ajax/([0-9]+)/([^/]+)?$ controller/UserController.php?id=$1&action=$2 [L]
+
+RewriteRule ^user/([^/]+)?$ controller/UserController.php?action=$1 [L]
+RewriteRule ^user-register?$ controller/UserController.php [L]
+RewriteRule ^user-update?$ controller/UserController.php [L]
+RewriteRule ^user-delete/([0-9]+)/([^/]+)?$ controller/UserController.php?id=$1&action=$2 [L]
+RewriteRule ^user-count/([0-9]+)/([^/]+)?$ controller/UserController.php?id=$1&action=$2 [L]
+
+# Redirect to Department
+RewriteRule ^department/([^/]+)?$ controller/DepartmentController.php?action=$1 [L]
+
+# Redirect to Equipment
+RewriteRule ^equipment?$ view/equipment/list.php [L]
+RewriteRule ^equipment/([^/]+)?$ controller/EquipmentController.php?action=$1 [L]
+RewriteRule ^equipment-delete/([0-9]+)/([^/]+)?$ controller/EquipmentController.php?id=$1&action=$2 [L]
+RewriteRule ^equipment-register?$ controller/EquipmentController.php [L]
+RewriteRule ^equipment-update?$ controller/EquipmentController.php [L]
+RewriteRule ^equipment-count/([0-9]+)/([^/]+)?$ controller/EquipmentController.php?id=$1&action=$2 [L]
+
+# Redirect to Reservation
+RewriteRule ^reservation-new?$ view/reservation/list.php [L]
+RewriteRule ^reservation/([^/]+)?$ controller/ReservationController.php?action=$1 [L]
+RewriteRule ^reservation-view/([^/]+)?$ view/reservation/approval.php?id=$1 [L]
+
+# Redirect to General
+RewriteRule ^login?$ view/auth/login.php [L]
+RewriteRule ^signup?$ view/auth/register.php [L]
+RewriteRule ^forgot?$ view/auth/forgot.php [L]
+RewriteRule ^logout?$ view/logout.php [L]
+RewriteRule ^peralatan?$ view/user/item.php [L]
+RewriteRule ^authorization?$ controller/AuthController.php [L]
+
+# Redirect to API Function
+RewriteRule ^api?$ controller/ApiController.php [L]
+RewriteRule ^api/([0-9]+)/([^/]+)?$ controller/ApiController.php?id=$1&action=$2 [L]
+RewriteRule ^api/([0-9]+)/([^/]+)/([0-9]+) controller/ApiController.php?id=$1&action=$2&updateid=$3 [L]
+
+# Redirect to Error Page
+RewriteRule ^404?$ view/error/404.php [L]
+RewriteRule ^503?$ view/error/503.php [L]
+
+</IfModule>

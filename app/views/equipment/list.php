@@ -3,7 +3,7 @@
       <div class="row">
       <!-- /.col -->
       <div class="col-md-4 col-8">
-        <div class="box box-body bg-primary">
+        <div class="box box-body bg-success">
           <h6 class="text-uppercase">KONDISI BAIK</h6>
           <div class="flexbox mt-2">
           <span class="path1"></span><span class="path2"></span></span>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="col-md-4 col-8">
-        <div class="box box-body bg-success">
+        <div class="box box-body bg-warning">
           <h6 class="text-uppercase">KONDISI DISELENGGARA</h6>
           <div class="flexbox mt-2">
           <span class="path1"></span><span class="path2"></span></span>
@@ -23,7 +23,7 @@
       </div>
 
       <div class="col-md-4 col-8">
-        <div class="box box-body bg-info">
+        <div class="box box-body bg-danger">
           <h6 class="text-uppercase">KONDISI LUPUS</h6>
           <div class="flexbox mt-2">
           <span class="path1"></span><span class="path2"></span></span>
