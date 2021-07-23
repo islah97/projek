@@ -10,6 +10,7 @@ class Reservation extends Controller
 		$this->session();
 		$this->db = new Database;
 		$this->reservation_model = $this->model('Reservation_model');
+		$this->item_model = $this->model('Item_model');
 		$this->user_model = $this->model('User_model');
 		$this->timestamp = date('Y-m-d H:i:s');
 	}
@@ -17,23 +18,81 @@ class Reservation extends Controller
 	public function index()
 	{
 		// Empty function
+		$data = [
+			'title' => 'Senarai Tempahan',
+			'currentSidebar' => 'reservation',
+			'currentSubSidebar' => 'listAll'
+		];
+
+		$this->render('reservation/newList', $data);
+	}
+
+	public function complete()
+	{
+		// Empty function
+		$data = [
+			'title' => 'Senarai Tempahan',
+			'currentSidebar' => 'reservation',
+			'currentSubSidebar' => 'listAll'
+		];
+
+		$this->render('reservation/completeList', $data);
+	}
+
+	public function reject()
+	{
+		// Empty function
+		$data = [
+			'title' => 'Senarai Tempahan',
+			'currentSidebar' => 'reservation',
+			'currentSubSidebar' => 'listAll'
+		];
+
+		$this->render('reservation/rejectList', $data);
+	}
+
+	public function terima()
+	{
+		// Empty function
+		$data = [
+			'title' => 'Senarai Tempahan',
+			'currentSidebar' => 'reservation',
+			'currentSubSidebar' => 'listAll'
+		];
+
+		$this->render('reservation/approveList', $data);
+	}
+
+	public function countList()
+	{
+		$type = $this->db->escape($_POST['typeData']);
+		$this->jsonResult($this->reservation_model->getDashboardCountReserve($type));
 	}
 
 	public function getUpdateData()
 	{
 	  $id = $this->db->escape($_POST['id']);
 	  $result = $this->reservation_model->getReserveByID($id);
+	  $resultItem = $this->item_model->getItemByReserveID($result['reservation_id']);
 
 	  $data = array(
-	      "reservation_id" => $result['reservation_id'],
-	      "reservation_date_pickup" => $result['reservation_date_pickup'],
-	      "reservation_time_pickup" => $result['reservation_time_pickup'],
-	      "reservation_date_return" => $result['reservation_date_return'],
-	      "reservation_time_return" => $result['reservation_time_return'],
-	      "reservation_time_return" => $result['reservation_time_return'],
-	      "reservation_status" => $result['reservation_status'],
-	      "user_id" => $result['user_id'],
+	     "reservation" => $result,
+	      "item" => $resultItem,
 	  );
+
+	  $this->jsonResult($data);
+	}
+
+	public function getApproveData()
+	{
+	  $id = $this->db->escape($_POST['id']);
+	  $result = $this->reservation_model->getReserveApproveByID($id);
+	  $resultItem = $this->item_model->getItemByReserveID($result['reservation_id']);
+
+	  $data = array(
+	  	  "reservation" => $result,
+	      "item" => $resultItem,
+	  	);
 
 	  $this->jsonResult($data);
 	}
@@ -44,9 +103,18 @@ class Reservation extends Controller
 		// echo $this->reservation_model->getListData();
 	}
 
+	public function getListReservation()
+	{
+		$type = $this->db->escape($_POST['typeData']);
+		$this->jsonResult($this->reservation_model->getListbyStatus($type));
+	}
+
 	public function create()
 	{
-		$resCode = $this->reservation_model->insert($_POST);
+		$resID = $this->reservation_model->insert($_POST);
+		$_POST['reservation_id'] = $resID;
+
+		$resCode = $this->item_model->insert($_POST);
 		$data = array(
 	      "type" => 'create',
 	      "resCode" => $resCode,
@@ -59,6 +127,18 @@ class Reservation extends Controller
 		$resCode = $this->reservation_model->update($_POST);
 		$data = array(
 	      "type" => 'update',
+	      "resCode" => $resCode,
+		);
+
+		$this->jsonResult($data);
+	}
+
+	public function approve()
+	{
+
+		$resCode = $this->reservation_model->approve($_POST);
+		$data = array(
+	      "type" => 'approve',
 	      "resCode" => $resCode,
 		);
 

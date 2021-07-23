@@ -31,4 +31,9 @@ class Model
         // header("Content-type:application/json");
         echo json_encode($result);
     }
+
+    public function addcomma($array){
+        $comma_separated = implode(', ', array_map(function($i) { return $i; }, $array));
+        return $comma_separated;
+    }
 }

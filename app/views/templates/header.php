@@ -54,7 +54,7 @@
             <a href="#" class="logo">
               <!-- logo-->
               <div class="logo-lg">
-                  <span class="light-logo"><img src="<?= base_url; ?>images/MBK2.png" alt="logo" ></span>
+                  <span class="light-logo" ><img src="<?= base_url; ?>images/MBK2.png" alt="logo" ></span>
                   <span class="dark-logo"><img src="<?= base_url; ?>images/logo-light-text.png" alt="logo"></span>
               </div>
             </a>    
@@ -85,16 +85,9 @@
             
               <!-- User Account-->
               <li class="dropdown user user-menu">
-                <a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="User">
-                    <i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
+                <a class="waves-effect waves-light" data-toggle="modal" data-target="#logoutModal" title="Logout">
+                    <i class="ti-lock text-muted mr-2"></i>
                 </a>
-                <ul class="dropdown-menu animated flipInX">
-                  <li class="user-body">
-                     <a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> Profile</a>
-                     <div class="dropdown-divider"></div>
-                     <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"><i class="ti-lock text-muted mr-2"></i> Logout</a>
-                  </li>
-                </ul>
               </li> 
             </ul>
           </div>
@@ -127,13 +120,14 @@
           <!-- sidebar menu-->
           <ul class="sidebar-menu" data-widget="tree">  
             <li>
-              <a href="dashboard">
+              <a href="<?= base_url; ?>dashboard">
                  <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
                 <span>Dashboard</span>
               </a>
             </li>
 
-            <li class="treeview">
+            <?php if ($this->session->get('roleID') != 2) { ?>
+                <li class="treeview">
               <a href="#">
                 <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
                 <span>Senarai</span>
@@ -142,11 +136,13 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?= base_url; ?>user"><i class="icon-Briefcase"><span class="path1"></span><span class="path2"></span></i> Pengguna</a></li>
-                <li><a href="<?= base_url; ?>equipment"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Peralatan</a></li>
+                <li class="<?= ($data['currentSidebar'] == 'user') ? 'active' : '' ?>"><a href="<?= base_url; ?>user"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Pengguna</a></li>
+                <li class="<?= ($data['currentSidebar'] == 'equipment') ? 'active' : '' ?>"><a href="<?= base_url; ?>equipment"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Peralatan</a></li>
               </ul>
 
             </li>
+
+              <?php } ?>
 
             <li class="treeview">
               <a href="#">
@@ -157,9 +153,18 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?= base_url; ?>reservation/newList"><i class="icon-Briefcase"><span class="path1"></span><span class="path2"></span></i> Permohonan Baru</a></li>
-                <li><a href="reservation-completed"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Permohonan Selesai</a></li>
-                <li><a href="<?= base_url; ?>reservation/rejectList"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Permohonan Ditolak</a></li>
+
+                <?php if ($this->session->get('roleID') == 2) { ?>
+                <li><a href="<?= base_url; ?>reservation"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Senarai Permohonan</a></li>
+
+              <?php }else { ?>
+                 <li><a href="<?= base_url; ?>reservation"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Permohonan Baru</a></li>
+                 <li><a href="<?= base_url; ?>reservation/terima"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Permohonan Diluluskan</a></li>
+                <li><a href="<?= base_url; ?>reservation/reject"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Permohonan Ditolak</a></li>
+                <li><a href="<?= base_url; ?>reservation/complete"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Permohonan Selesai</a></li>
+              <?php }?>
+              
+              </ul>
               </ul>
 
             </li>
@@ -170,12 +175,12 @@
                 <span>List</span>
               </a>
             </li> -->
-            <li>
+            <!-- <li>
               <a href="#">
                 <i class="icon-File"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                 <span>Applications</span>
               </a>
-            </li>
+            </li> -->
                      
           </ul>
          </section>

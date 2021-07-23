@@ -51,6 +51,12 @@ class Equipment_model extends Model
         return $data;
     }
 
+    public function getEquipByIDStatus($params = NULL, $param = NULL)
+    {
+        $data = $this->db->where('type_id', $params)->where('equipment_status', $param)->get($this->table);
+        return $data;
+    }
+
     public function getAllEquipment()
     {   
         // $this->db->join("department", "user.department_id=department.department_id", "LEFT");
@@ -77,6 +83,7 @@ class Equipment_model extends Model
             'equipment_status' => $this->db->escape($data['equipment_status']),
             'equipment_type' => $this->db->escape($data['equipment_type']),
             'equipment_model' => $this->db->escape($data['equipment_model']),
+            'type_id' => $this->db->escape($data['type_id']),
             'created_at' => $this->timestamp
         ];
 

@@ -27,6 +27,30 @@ class Item_model extends Model
         return $data;
     }
 
+    public function getItemByReserveID($params = NULL)
+    {
+        $this->db->join("equipment e", "f.equipment_id=e.equipment_id", "LEFT");
+        $data = $this->db->where('reservation_id', $params)->get($this->table." f", null, "*");
+
+        $equipmentArray = array();
+
+        foreach ($data as $equipmentList) {
+            $equipmentArray[] = $equipmentList['equipment_name']." - ". $equipmentList['equipment_type']."(".$equipmentList['equipment_model'].") ";
+        }
+
+
+        $listEquipment = $this->addcomma($equipmentArray);
+
+        $result[] = array(
+            'item_id' => $equipmentList['item_id'],
+            'master_equipment_id' => $equipmentList['master_equipment_id'],
+            'equipment_id' => $equipmentList['equipment_id'],
+            'equipment_list' => $listEquipment,
+        );
+
+        return $result;
+    }
+
     // use server side datatable
     // public function getListData()
     // {
@@ -59,15 +83,16 @@ class Item_model extends Model
 
     public function insert($data)
     {
-        $data = [
-            'reservation_date' => $this->db->escape($data['reservation_date']),
-            'reservation_id' => $this->db->escape($data['reservation_id']),
-            'equipment_id' => $this->db->escape($data['equipment_id']),
-            'created_at' => $this->timestamp
-        ];
+        foreach($data['type_id'] as $equipmentItem) {
+            $itemList[] = Array(
+                'reservation_date' => $this->db->escape($data['reservation_date_pickup']),
+                'reservation_id' => $this->db->escape($data['reservation_id']),
+                'master_equipment_id' => $equipmentItem,
+                'created_at' => $this->timestamp
+            );
+        }
+        return $result = ($this->db->insertMulti($this->table, $itemList)) ? 200 : 400;
 
-        $result = ($this->db->insert($this->table, $data)) ? 200 : 400;
-        return $result;
     }
 
     public function update($data)

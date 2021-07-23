@@ -56,6 +56,25 @@ class Equipment extends Controller
 		echo $this->equipment_model->getDashboardEquipment($type);
 	}
 
+	public function getListSelect()
+	{
+
+		$type_id = $this->db->escape($_POST['id']);
+		$item_id = $this->db->escape($_POST['itemID']);
+		$status = $this->db->escape($_POST['status']);
+		$data = $this->equipment_model->getEquipByIDStatus($type_id, $status);
+
+
+                    
+		echo "<select name='item_id[".$item_id."]' id='item_id".$item_id."' class='form-control'>
+				<option value=''> - Sila Pilih - </option>";
+		foreach ($data as $row) {
+				echo "<option value='".$row['equipment_id']."'> ".$row['equipment_name']." (".$row['equipment_model'].") </option>";
+		}
+		echo "</select>";
+		// echo $this->department_model->getListData();
+	}
+
 	public function create()
 	{
 		$resCode = $this->equipment_model->insert($_POST);

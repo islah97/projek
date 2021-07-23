@@ -69,7 +69,8 @@ class App
             'Dashboard', 
             'User', 
             'Department', 
-            'Auth'
+            'Auth',
+            'MasterEquipment'
         );
 
         $arrStaffController = array(

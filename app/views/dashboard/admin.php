@@ -3,15 +3,15 @@
   <section class="content">
       <div class="row">
           <div class="col-xl-9 col-12">
-            <h4 class="mg-b-0 tx-spacing--1"> Hi, <?= $this->session->get('fullname'); ?> !</h4>
+            <h4 class="mg-b-0 tx-spacing--1" style="margin-bottom: 15px;"> Hi, <?= $this->session->get('fullname'); ?> !</h4>
               <div class="row">
                   <div class="col-lg-4 col-12">
                       <div class="box">
-                          <div class="box-body ">
+                          <div class="box-body">
                               <div class="d-flex justify-content-between align-items-center">
                                   <div>
-                                      <h5 class="text-fade">Permohonan Baru</h5>
-                                      <h2 class="font-weight-500 mb-0">132.0K</h2>
+                                      <h5 class="text-uppercase">Jumlah Pengguna</h5>
+                                      <h2 class="font-weight-500 mb-0" id="total_user" >0</h2>
                                   </div>
                                   <div>
                                       <!-- <div id="revenue1"></div> -->
@@ -25,8 +25,8 @@
                           <div class="box-body">
                               <div class="d-flex justify-content-between align-items-center">
                                   <div>
-                                      <h5 class="text-fade">Permohonan Selesai</h5>
-                                      <h2 class="font-weight-500 mb-0">10.9k</h2>
+                                      <h5 class="text-uppercase">Jumlah Peralatan</h5>
+                                      <h2 class="font-weight-500 mb-0" id="total_equipment" >10.9k</h2>
                                   </div>
                                   <div>
                                       <!-- <div id="revenue2"></div> -->
@@ -40,8 +40,8 @@
                           <div class="box-body">
                               <div class="d-flex justify-content-between align-items-center">
                                   <div>
-                                      <h5 class="text-fade">Permohonan Ditolak</h5>
-                                      <h2 class="font-weight-500 mb-0">03.1k</h2>
+                                      <h5 class="text-uppercase">Jumlah Permohonan</h5>
+                                      <h2 class="font-weight-500 mb-0" id="total_permohonan">03.1k</h2>
                                   </div>
                                   <div>
                                       <!-- <div id="revenue3"></div> -->
@@ -221,5 +221,67 @@
   <script src="<?= base_url; ?>vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
   <script src="<?= base_url; ?>vendor_components/moment/min/moment.min.js"></script>
   <script src="<?= base_url; ?>vendor_components/fullcalendar/fullcalendar.js"></script>
+
+  <script type="text/javascript">
+
+      $(document).ready(function() {
+          // getListDepartment();
+          // getListData();
+          getCountData();
+            // reset all field 
+            // $("#formModal").on("hidden.bs.modal", function(){
+            //     $('#titleModal').html('Daftar Peralatan');
+            //     document.getElementById("formData").reset();
+            //     $('#equipment_id').val('');
+            //     $('#typeForm').val('create');
+            //     $(".modal-backdrop").remove();
+            });
+      
+
+      function getCountData(){
+            
+          // get count total user
+          $.ajax({
+                type: "POST",
+                data: {
+                        typeData: 0,
+                      },
+                url: 'user/countUser',
+                dataType: "JSON",
+                success: function(data) {
+                    $('#total_user').html(data);
+                },
+               
+            });
+
+            // get count total peralatan
+          $.ajax({
+                type: "POST",
+                 data: {
+                        typeData: 0,
+                      },
+                url: 'equipment/countEquipment',
+                dataType: "JSON",
+                success: function(data) {
+                    $('#total_equipment').html(data);
+                },
+               
+            });
+
+            // get count total permohonan
+          $.ajax({
+                type: "POST",
+                 data: {
+                        typeData: 0,
+                      },
+                url: 'reservation/countList',
+                dataType: "JSON",
+                success: function(data) {
+                  $('#total_permohonan').html(data);
+
+                },
+               
+            });
+        }
     
-  
+  </script>
